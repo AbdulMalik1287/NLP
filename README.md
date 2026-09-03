@@ -33,6 +33,13 @@ It is the Week-1 deliverable set: environment spec, dataset inventory, and liter
 - [`scripts/audit_cfpb.py`](scripts/audit_cfpb.py) — reproducible audit script (stdlib only)
 - [`docs/DEMO_AND_METRICS.md`](docs/DEMO_AND_METRICS.md) — result tables, expected sanity bands, 10-day fast path to first numbers, live-demo spec
 
+## Branches
+
+- `main` — pinned to the 6 GB laptop (RTX 2060, torch cu121, fp16, frozen embeddings)
+- **`blackwell`** — the college RTX PRO 6000 Blackwell node: torch cu128 (Blackwell is
+  sm_120 and cu121 builds have no kernels for it), bf16, Slurm template, hardware presets.
+  See [`docs/BLACKWELL.md`](docs/BLACKWELL.md).
+
 ## Status
 
 Prerequisites only. Nothing has been downloaded, trained, or annotated yet.

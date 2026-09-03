@@ -19,6 +19,7 @@ import argparse
 import json
 import os
 import random
+import sys
 import time
 
 import numpy as np
@@ -79,14 +80,14 @@ def freeze_embeddings(model, verbose=True):
 
 
 @torch.no_grad()
-def evaluate(model, loader, device, id2label, amp):
+def evaluate(model, loader, device, id2label, amp, amp_dtype=torch.float16):
     model.eval()
     preds, golds = [], []
     t0 = time.time()
     for batch in loader:
         batch = {k: v.to(device, non_blocking=True) for k, v in batch.items()}
         labels = batch.pop("labels")
-        with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
+        with torch.autocast("cuda", dtype=amp_dtype, enabled=amp):
             logits = model(**batch).logits
         preds.extend(logits.argmax(-1).cpu().tolist())
         golds.extend(labels.cpu().tolist())
@@ -104,6 +105,30 @@ def evaluate(model, loader, device, id2label, amp):
         "per_class": classification_report(y_true, y_pred, labels=labels_sorted,
                                            output_dict=True, zero_division=0),
     }
+
+
+def apply_preset(a, ap):
+    """Preset values fill in only what the user did not pass explicitly."""
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        "configs", "presets.json")
+    with open(path, encoding="utf-8") as f:
+        presets = json.load(f)["presets"]
+    if a.preset not in presets:
+        raise SystemExit("unknown preset %r; available: %s" % (a.preset, sorted(presets)))
+    cfg = presets[a.preset]
+    explicit = {act.dest for act in ap._actions
+                if any(opt in sys.argv for opt in act.option_strings)}
+    for k, v in cfg.items():
+        if k == "comment":
+            continue
+        if k == "freeze_embeddings":
+            if "no_freeze_embeddings" not in explicit:
+                a.no_freeze_embeddings = not v
+            continue
+        if hasattr(a, k) and k not in explicit:
+            setattr(a, k, v)
+    print("preset %s: %s" % (a.preset, cfg.get("comment", "")))
+    return a
 
 
 def main():
@@ -124,14 +149,30 @@ def main():
     ap.add_argument("--weight-decay", type=float, default=0.01)
     ap.add_argument("--no-freeze-embeddings", action="store_true")
     ap.add_argument("--no-amp", action="store_true")
+    ap.add_argument("--precision", choices=["fp16", "bf16", "fp32"], default="fp16",
+                    help="bf16 on Blackwell/Ampere+: no GradScaler, better stability")
+    ap.add_argument("--preset", default="", help="named preset from configs/presets.json")
     ap.add_argument("--limit-train", type=int, default=0, help="debug: truncate train set")
     ap.add_argument("--save-model", default="")
     a = ap.parse_args()
 
+    if a.preset:
+        a = apply_preset(a, ap)
     set_seed(a.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    amp = (not a.no_amp) and device == "cuda"
-    print("device=%s amp=%s model=%s" % (device, amp, a.model))
+    amp = (not a.no_amp) and device == "cuda" and a.precision != "fp32"
+    amp_dtype = torch.bfloat16 if a.precision == "bf16" else torch.float16
+    if a.precision == "bf16" and device == "cuda" and not torch.cuda.is_bf16_supported():
+        raise SystemExit("bf16 requested but this GPU does not support it; use --precision fp16")
+    print("device=%s precision=%s amp=%s model=%s" % (device, a.precision, amp, a.model))
+    if device == "cuda":
+        cap = torch.cuda.get_device_capability()
+        arches = torch.cuda.get_arch_list()
+        if ("sm_%d%d" % cap) not in arches:
+            raise SystemExit(
+                "torch %s has no kernels for sm_%d%d (%s). Blackwell needs a cu128 build; "
+                "run scripts/check_env.py." % (torch.__version__, cap[0], cap[1],
+                                               torch.cuda.get_device_name(0)))
 
     tr = read_jsonl(a.train)
     va = read_jsonl(a.val) if os.path.exists(a.val) else []
@@ -163,7 +204,7 @@ def main():
     opt = torch.optim.AdamW(params, lr=a.lr, weight_decay=a.weight_decay)
     steps = max(1, (len(dl_tr) // a.grad_accum) * a.epochs)
     sched = get_linear_schedule_with_warmup(opt, int(steps * a.warmup_ratio), steps)
-    scaler = torch.amp.GradScaler("cuda", enabled=amp)
+    scaler = torch.amp.GradScaler("cuda", enabled=(amp and a.precision == "fp16"))
 
     hist = []
     t_start = time.time()
@@ -173,7 +214,7 @@ def main():
         opt.zero_grad(set_to_none=True)
         for step, batch in enumerate(dl_tr, 1):
             batch = {k: v.to(device, non_blocking=True) for k, v in batch.items()}
-            with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
+            with torch.autocast("cuda", dtype=amp_dtype, enabled=amp):
                 loss = model(**batch).loss / a.grad_accum
             scaler.scale(loss).backward()
             running += loss.item() * a.grad_accum
@@ -192,11 +233,11 @@ def main():
         ep_stats = {"epoch": ep, "train_loss": round(running / max(1, len(dl_tr)), 4),
                     "epoch_seconds": round(time.time() - t_ep, 1)}
         if dl_va:
-            ep_stats["val"] = evaluate(model, dl_va, device, i2l, amp)
+            ep_stats["val"] = evaluate(model, dl_va, device, i2l, amp, amp_dtype)
             print("  ep%d val macro-F1=%s" % (ep, ep_stats["val"]["macro_f1"]))
         hist.append(ep_stats)
 
-    test_stats = evaluate(model, dl_te, device, i2l, amp)
+    test_stats = evaluate(model, dl_te, device, i2l, amp, amp_dtype)
     print("TEST macro-F1=%s acc=%s" % (test_stats["macro_f1"], test_stats["accuracy"]))
 
     out = {

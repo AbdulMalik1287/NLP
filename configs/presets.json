@@ -1,0 +1,25 @@
+{
+  "note": "Hardware presets. Pass --preset <name> to scripts/train_transformer.py; explicit CLI flags always win.",
+  "presets": {
+    "laptop_6gb": {
+      "comment": "RTX 2060 6 GB. Freezing the 192M-param embedding matrix is what makes this fit.",
+      "batch_size": 16, "grad_accum": 2, "max_len": 256,
+      "precision": "fp16", "freeze_embeddings": true, "lr": 2e-5
+    },
+    "mig_24gb": {
+      "comment": "One 1g.24gb Blackwell MIG slice. Fits xlm-r large and mT5-base fine-tuning.",
+      "batch_size": 32, "grad_accum": 1, "max_len": 256,
+      "precision": "bf16", "freeze_embeddings": false, "lr": 2e-5
+    },
+    "node_full": {
+      "comment": "A whole RTX PRO 6000 Blackwell (96 GB). Big batches; no accumulation needed.",
+      "batch_size": 128, "grad_accum": 1, "max_len": 256,
+      "precision": "bf16", "freeze_embeddings": false, "lr": 3e-5
+    },
+    "node_full_large": {
+      "comment": "xlm-roberta-large on a full 96 GB card.",
+      "batch_size": 64, "grad_accum": 1, "max_len": 256,
+      "precision": "bf16", "freeze_embeddings": false, "lr": 1e-5
+    }
+  }
+}

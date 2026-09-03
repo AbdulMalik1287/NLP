@@ -1,0 +1,49 @@
+# AI node: 2x NVIDIA RTX PRO 6000 Blackwell Server Edition (GB202, sm_120)
+#
+# Blackwell needs CUDA 12.8+ kernels. torch 2.4/cu121 (the laptop pin on main)
+# imports fine, reports cuda.is_available()==True, then dies at the first matmul
+# with "no kernel image is available for execution on the device".
+#
+# Install torch FIRST, from the cu128 index:
+#   pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+#   python scripts/check_env.py     # must print sm_120 OK before anything else
+#
+# If the cluster driver is older than ~570 and cannot be upgraded, use the NGC
+# container instead of pip wheels: nvcr.io/nvidia/pytorch:25.06-py3 (or newer).
+
+torch==2.8.0                  # cu128 index, see above
+transformers==4.56.0
+tokenizers>=0.20
+sentencepiece==0.2.0
+datasets==3.0.1
+accelerate==1.0.1
+evaluate==0.4.3
+safetensors>=0.4.5
+
+scikit-learn==1.5.2
+scipy==1.14.1
+numpy==2.1.2
+pandas==2.2.3
+
+sentence-transformers==3.1.1
+faiss-cpu==1.8.0.post1        # index is tiny; GPU FAISS is unnecessary here
+
+rouge-score==0.1.2
+bert-score==0.3.13
+sacrebleu==2.4.3
+nltk==3.9.1
+
+fasttext-wheel==0.9.2
+shap==0.46.0
+matplotlib==3.9.2
+
+ftfy==6.2.3
+regex==2024.9.11
+datasketch==1.6.5
+rapidfuzz==3.9.7
+indic-transliteration==2.3.61
+
+hydra-core==1.3.2
+omegaconf==2.3.0
+mlflow==2.16.2
+tqdm==4.66.5
