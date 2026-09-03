@@ -1,5 +1,5 @@
 {
-  "version": "v0",
+  "version": "v0.1",
   "note": "Ordered rules; first match wins, matched against '<issue> || <sub_issue>' lowercased. Extends the proposal's SS8 ontology with the finance-specific intents that actually dominate CFPB (reporting/debt/fraud). Unmapped rows are dropped and counted so the map can be iterated.",
   "rules": [
     {
@@ -30,7 +30,8 @@
       "contains": [
         "fraud or scam",
         "unauthorized transaction",
-        "identity theft"
+        "identity theft",
+        "problem with fraud alerts or security freezes"
       ]
     },
     {
@@ -53,7 +54,8 @@
       "contains": [
         "written notification about debt",
         "communication tactics",
-        "disclosure verification of debt"
+        "disclosure verification of debt",
+        "electronic communications"
       ]
     },
     {
@@ -63,7 +65,9 @@
         "struggling to pay",
         "problem when making payments",
         "payment to acct not credited",
-        "making/receiving payments"
+        "making/receiving payments",
+        "problem with a lender or other company charging your account",
+        "can't stop withdrawals"
       ]
     },
     {
@@ -72,7 +76,10 @@
         "problem with a purchase shown on your statement",
         "other transaction problem",
         "other service problem",
-        "unexpected or other fees"
+        "unexpected or other fees",
+        "trouble using your card",
+        "trouble using the card",
+        "problem with a purchase or transfer"
       ]
     },
     {
@@ -80,7 +87,9 @@
       "contains": [
         "problem caused by your funds being low",
         "managing, opening, or closing your mobile wallet",
-        "deposits and withdrawals"
+        "deposits and withdrawals",
+        "money was not available when promised",
+        "money was taken from your bank account on the wrong day"
       ]
     },
     {
@@ -110,7 +119,13 @@
         "dealing with your lender or servicer",
         "dealing with my lender or servicer",
         "loan servicing, payments, escrow account",
-        "problem with customer service"
+        "problem with customer service",
+        "repossession",
+        "problems at the end of the loan or lease",
+        "problem with the payoff process at the end of the loan",
+        "struggling to repay your loan",
+        "issues with repayment",
+        "problem with the payoff process"
       ]
     },
     {
@@ -123,7 +138,9 @@
         "getting a credit card",
         "application processing delay",
         "can't stop withdrawals",
-        "charged fees or interest you didn't expect"
+        "getting the loan",
+        "getting a loan or lease",
+        "was approved for a loan, but didn't receive the money"
       ]
     },
     {
@@ -133,7 +150,14 @@
         "apr or interest rate",
         "rewards",
         "advertising and marketing",
-        "credit determination"
+        "credit determination",
+        "fees or interest",
+        "charged upfront or unexpected fees",
+        "charged fees or interest you didn't expect",
+        "confusing or missing disclosures",
+        "other features, terms, or problems",
+        "problem with additional add-on products or services",
+        "confusing or misleading advertising"
       ]
     },
     {
@@ -143,5 +167,8 @@
         "settlement process and costs"
       ]
     }
+  ],
+  "changelog": [
+    "v0.1: added 20 rules for issues left unmapped by the 150k-row smoke run (fees/terms, repossession and payoff, card usability, fund availability); moved unexpected-fee complaints from application_problem to credit_terms_dispute"
   ]
 }

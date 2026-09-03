@@ -1,0 +1,244 @@
+{
+  "params": {
+    "zip": "data/raw/complaints.csv.zip",
+    "out_dir": "data/processed",
+    "per_product": 20000,
+    "cap_per_intent": 5000,
+    "min_words": 20,
+    "seed": 13,
+    "n_perm": 64,
+    "bands": 16,
+    "max_shingles": 400,
+    "limit_rows": 0
+  },
+  "csv_rows_scanned": 17516902,
+  "narratives_eligible": 3689645,
+  "narratives_by_product_full": {
+    "credit_reporting": 2392305,
+    "debt_collection": 424753,
+    "credit_card": 232075,
+    "bank_account": 198138,
+    "mortgage": 145658,
+    "money_transfer": 120320,
+    "student_loan": 61777,
+    "vehicle_loan": 52112,
+    "payday_personal_loan": 36500,
+    "prepaid_card": 11381,
+    "consumer_loan": 9246,
+    "debt_management": 5088,
+    "other": 292
+  },
+  "sampled_before_dedup": 206007,
+  "dropped_exact_duplicates": 12237,
+  "dropped_near_duplicates": 11232,
+  "after_dedup": 182538,
+  "duplicate_drop_pct": 11.39,
+  "mapped": 169170,
+  "unmapped": 13368,
+  "unmapped_coverage_pct": 7.32,
+  "top_unmapped_issues": [
+    [
+      "Problems when you are unable to pay",
+      2366
+    ],
+    [
+      "Loan modification,collection,foreclosure",
+      1485
+    ],
+    [
+      "Didn't provide services promised",
+      1361
+    ],
+    [
+      "Can't repay my loan",
+      992
+    ],
+    [
+      "Getting a line of credit",
+      771
+    ],
+    [
+      "Shopping for a loan or lease",
+      589
+    ],
+    [
+      "Unauthorized withdrawals or charges",
+      576
+    ],
+    [
+      "Received a loan you didn't apply for",
+      403
+    ],
+    [
+      "Can't contact lender or servicer",
+      388
+    ],
+    [
+      "Loan payment wasn't credited to your account",
+      262
+    ],
+    [
+      "Vehicle was repossessed or sold the vehicle",
+      255
+    ],
+    [
+      "Billing disputes",
+      228
+    ],
+    [
+      "Problems caused by my funds being low",
+      203
+    ],
+    [
+      "Can't contact lender",
+      200
+    ],
+    [
+      "Credit decision / Underwriting",
+      182
+    ],
+    [
+      "Other",
+      182
+    ],
+    [
+      "Wrong amount charged or received",
+      158
+    ],
+    [
+      "Using a debit or ATM card",
+      157
+    ],
+    [
+      "Improper contact or sharing of info",
+      147
+    ],
+    [
+      "Taking/threatening an illegal action",
+      130
+    ],
+    [
+      "Closing/Cancelling account",
+      129
+    ],
+    [
+      "Received a loan I didn't apply for",
+      112
+    ],
+    [
+      "Problem with cash advance",
+      96
+    ],
+    [
+      "Customer service / Customer relations",
+      95
+    ],
+    [
+      "Problem adding money",
+      90
+    ]
+  ],
+  "final_n": 73643,
+  "intent_distribution": {
+    "payment_problem": 5000,
+    "account_management": 5000,
+    "transaction_problem": 5000,
+    "credit_terms_dispute": 5000,
+    "account_access": 5000,
+    "servicing_dispute": 5000,
+    "reporting_incorrect_information": 5000,
+    "debt_not_owed": 5000,
+    "funds_availability": 5000,
+    "application_problem": 5000,
+    "fraud_or_scam": 5000,
+    "debt_communication": 4695,
+    "reporting_investigation_dispute": 4433,
+    "debt_threats": 4027,
+    "reporting_improper_use": 3683,
+    "closing_process": 1805
+  },
+  "n_intents": 16,
+  "imbalance_ratio": 2.77,
+  "product_distribution": {
+    "debt_collection": 14689,
+    "credit_reporting": 8386,
+    "bank_account": 8299,
+    "credit_card": 7045,
+    "mortgage": 6348,
+    "money_transfer": 6310,
+    "vehicle_loan": 6020,
+    "payday_personal_loan": 5737,
+    "student_loan": 4219,
+    "prepaid_card": 3892,
+    "consumer_loan": 1813,
+    "debt_management": 831,
+    "other": 54
+  },
+  "splits": {
+    "train": 51555,
+    "val": 11044,
+    "test": 11044
+  },
+  "lodo": {
+    "bank_account": {
+      "train": 65344,
+      "test": 8299,
+      "test_intents": 8
+    },
+    "consumer_loan": {
+      "train": 71830,
+      "test": 1813,
+      "test_intents": 4
+    },
+    "credit_card": {
+      "train": 66598,
+      "test": 7045,
+      "test_intents": 10
+    },
+    "credit_reporting": {
+      "train": 65257,
+      "test": 8386,
+      "test_intents": 5
+    },
+    "debt_collection": {
+      "train": 58954,
+      "test": 14689,
+      "test_intents": 4
+    },
+    "debt_management": {
+      "train": 72812,
+      "test": 831,
+      "test_intents": 2
+    },
+    "money_transfer": {
+      "train": 67333,
+      "test": 6310,
+      "test_intents": 6
+    },
+    "mortgage": {
+      "train": 67295,
+      "test": 6348,
+      "test_intents": 8
+    },
+    "payday_personal_loan": {
+      "train": 67906,
+      "test": 5737,
+      "test_intents": 9
+    },
+    "prepaid_card": {
+      "train": 69751,
+      "test": 3892,
+      "test_intents": 5
+    },
+    "student_loan": {
+      "train": 69424,
+      "test": 4219,
+      "test_intents": 6
+    },
+    "vehicle_loan": {
+      "train": 67623,
+      "test": 6020,
+      "test_intents": 8
+    }
+  }
+}

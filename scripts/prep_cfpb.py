@@ -70,33 +70,53 @@ def shingles(text, k=5):
 
 
 class MinHasher:
-    """Small dependency-free MinHash. n_perm hashes via salted blake2b."""
+    """Dependency-free MinHash.
 
-    def __init__(self, n_perm=64, bands=16):
+    Each shingle is hashed ONCE to 64 bits, then the n_perm permutations are cheap
+    affine maps (a*h + b mod P) over those values. Hashing per permutation instead
+    (64 x ~400 blake2b calls per document) made the full corpus run take hours.
+    Uses numpy when it is importable and falls back to pure Python so the script
+    still runs on a login node with a bare interpreter.
+    """
+
+    P = (1 << 61) - 1  # Mersenne prime
+
+    def __init__(self, n_perm=64, bands=16, seed=13):
         assert n_perm % bands == 0
-        self.n_perm = n_perm
-        self.bands = bands
+        self.n_perm, self.bands = n_perm, bands
         self.rows = n_perm // bands
-        self.salts = [b"s%d" % i for i in range(n_perm)]
+        rng = random.Random(seed)
+        self.a = [rng.randrange(1, self.P) for _ in range(n_perm)]
+        self.b = [rng.randrange(0, self.P) for _ in range(n_perm)]
+        try:
+            import numpy as np
+            self.np = np
+            self.a_np = np.array(self.a, dtype=np.uint64)
+            self.b_np = np.array(self.b, dtype=np.uint64)
+        except ImportError:
+            self.np = None
+
+    @staticmethod
+    def _h64(s):
+        return int.from_bytes(hashlib.blake2b(s.encode("utf-8"), digest_size=8).digest(), "big")
 
     def signature(self, sh):
         if not sh:
             return None
-        sig = []
-        for salt in self.salts:
-            best = None
-            for s in sh:
-                h = hashlib.blake2b(s.encode("utf-8"), digest_size=8, salt=salt).digest()
-                v = int.from_bytes(h, "big")
-                if best is None or v < best:
-                    best = v
-            sig.append(best)
-        return sig
+        hs = [self._h64(s) & 0x1FFFFFFFFFFFFFFF for s in sh]
+        if self.np is not None:
+            np = self.np
+            h = np.array(hs, dtype=np.uint64)
+            # (a[:,None] * h[None,:] + b[:,None]) % P, done in uint64
+            m = (self.a_np[:, None] * h[None, :] + self.b_np[:, None]) % np.uint64(self.P)
+            return m.min(axis=1).tolist()
+        return [min((a * x + b) % self.P for x in hs)
+                for a, b in zip(self.a, self.b)]
 
     def band_keys(self, sig):
         return [
             hashlib.blake2b(
-                json.dumps(sig[b * self.rows:(b + 1) * self.rows]).encode(),
+                (",".join(map(str, sig[b * self.rows:(b + 1) * self.rows]))).encode(),
                 digest_size=8,
             ).hexdigest()
             for b in range(self.bands)

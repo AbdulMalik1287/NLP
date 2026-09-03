@@ -115,7 +115,6 @@ def run_pair(train_rows, test_rows, seed, max_features, out_dir, tag):
               encoding="utf-8") as f:
         json.dump(out, f, indent=2)
 
-    best = max(r for r in results if "macro_f1" in r)
     cm_model = "tfidf_linearsvc"
     cm = confusion_matrix(y_te, preds[cm_model], labels=labels)
     np.savetxt(os.path.join(out_dir, "%s_seed%d_cm_%s.csv" % (tag, seed, cm_model)),
