@@ -29,6 +29,7 @@ It is the Week-1 deliverable set: environment spec, dataset inventory, and liter
 - [`docs/DATASETS.md`](docs/DATASETS.md) — candidate datasets, per-domain and per-language, with links + licences
 - [`docs/LITERATURE.md`](docs/LITERATURE.md) — papers to read before Week 4, grouped by component
 - [`docs/PREREQ_CHECKLIST.md`](docs/PREREQ_CHECKLIST.md) — tick-list to close out Week 1
+- [`docs/DEMO_AND_METRICS.md`](docs/DEMO_AND_METRICS.md) — result tables, expected sanity bands, 10-day fast path to first numbers, live-demo spec
 
 ## Status
 
