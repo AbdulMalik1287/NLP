@@ -1,0 +1,147 @@
+{
+  "version": "v0",
+  "note": "Ordered rules; first match wins, matched against '<issue> || <sub_issue>' lowercased. Extends the proposal's SS8 ontology with the finance-specific intents that actually dominate CFPB (reporting/debt/fraud). Unmapped rows are dropped and counted so the map can be iterated.",
+  "rules": [
+    {
+      "intent": "reporting_investigation_dispute",
+      "contains": [
+        "investigation into an existing problem",
+        "investigation into existing problem",
+        "credit reporting company's investigation"
+      ]
+    },
+    {
+      "intent": "reporting_incorrect_information",
+      "contains": [
+        "incorrect information on your report",
+        "incorrect information on credit report"
+      ]
+    },
+    {
+      "intent": "reporting_improper_use",
+      "contains": [
+        "improper use of your report",
+        "unable to get your credit report",
+        "credit monitoring or identity theft"
+      ]
+    },
+    {
+      "intent": "fraud_or_scam",
+      "contains": [
+        "fraud or scam",
+        "unauthorized transaction",
+        "identity theft"
+      ]
+    },
+    {
+      "intent": "debt_not_owed",
+      "contains": [
+        "attempts to collect debt not owed",
+        "cont'd attempts collect debt not owed"
+      ]
+    },
+    {
+      "intent": "debt_threats",
+      "contains": [
+        "took or threatened to take negative or legal action",
+        "false statements or representation",
+        "threatened to contact someone"
+      ]
+    },
+    {
+      "intent": "debt_communication",
+      "contains": [
+        "written notification about debt",
+        "communication tactics",
+        "disclosure verification of debt"
+      ]
+    },
+    {
+      "intent": "payment_problem",
+      "contains": [
+        "trouble during payment process",
+        "struggling to pay",
+        "problem when making payments",
+        "payment to acct not credited",
+        "making/receiving payments"
+      ]
+    },
+    {
+      "intent": "transaction_problem",
+      "contains": [
+        "problem with a purchase shown on your statement",
+        "other transaction problem",
+        "other service problem",
+        "unexpected or other fees"
+      ]
+    },
+    {
+      "intent": "funds_availability",
+      "contains": [
+        "problem caused by your funds being low",
+        "managing, opening, or closing your mobile wallet",
+        "deposits and withdrawals"
+      ]
+    },
+    {
+      "intent": "account_access",
+      "contains": [
+        "can't access",
+        "cannot access",
+        "trouble accessing",
+        "closing your account",
+        "closing an account",
+        "account status"
+      ]
+    },
+    {
+      "intent": "account_management",
+      "contains": [
+        "managing an account",
+        "opening an account",
+        "account opening, closing, or management",
+        "managing the loan or lease",
+        "managing, opening, or closing account"
+      ]
+    },
+    {
+      "intent": "servicing_dispute",
+      "contains": [
+        "dealing with your lender or servicer",
+        "dealing with my lender or servicer",
+        "loan servicing, payments, escrow account",
+        "problem with customer service"
+      ]
+    },
+    {
+      "intent": "application_problem",
+      "contains": [
+        "applying for a mortgage",
+        "application, originator, mortgage broker",
+        "taking out the loan or lease",
+        "getting a loan",
+        "getting a credit card",
+        "application processing delay",
+        "can't stop withdrawals",
+        "charged fees or interest you didn't expect"
+      ]
+    },
+    {
+      "intent": "credit_terms_dispute",
+      "contains": [
+        "credit limit",
+        "apr or interest rate",
+        "rewards",
+        "advertising and marketing",
+        "credit determination"
+      ]
+    },
+    {
+      "intent": "closing_process",
+      "contains": [
+        "closing on a mortgage",
+        "settlement process and costs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "fallback": "other",
+  "note": "CFPB renamed product labels over time (audit finding F2). 21 raw labels -> 12 canonical.",
+  "map": {
+    "Credit reporting or other personal consumer reports": "credit_reporting",
+    "Credit reporting, credit repair services, or other personal consumer reports": "credit_reporting",
+    "Credit reporting": "credit_reporting",
+    "Debt collection": "debt_collection",
+    "Debt or credit management": "debt_management",
+    "Checking or savings account": "bank_account",
+    "Bank account or service": "bank_account",
+    "Mortgage": "mortgage",
+    "Credit card": "credit_card",
+    "Credit card or prepaid card": "credit_card",
+    "Prepaid card": "prepaid_card",
+    "Money transfer, virtual currency, or money service": "money_transfer",
+    "Money transfers": "money_transfer",
+    "Virtual currency": "money_transfer",
+    "Student loan": "student_loan",
+    "Vehicle loan or lease": "vehicle_loan",
+    "Consumer Loan": "consumer_loan",
+    "Payday loan, title loan, personal loan, or advance loan": "payday_personal_loan",
+    "Payday loan, title loan, or personal loan": "payday_personal_loan",
+    "Payday loan": "payday_personal_loan",
+    "Other financial service": "other"
+  }
+}

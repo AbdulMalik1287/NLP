@@ -33,3 +33,7 @@ desktop.ini
 
 # tooling artifacts
 .impeccable/
+
+# local venv and raw/processed data
+.venv/
+results/
