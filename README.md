@@ -21,6 +21,12 @@ It is the Week-1 deliverable set: environment spec, dataset inventory, and liter
 | Explainability | SHAP — intent classifier only |
 | Serving | FastAPI + Uvicorn, Streamlit prototype UI |
 
+## Start here
+
+New to this project? Read [`docs/PROGRESS.md`](docs/PROGRESS.md) — current status,
+measured numbers, findings that shaped the design, the plan, open decisions, and the
+traps already hit.
+
 ## Contents
 
 - [`requirements.txt`](requirements.txt) — pinned-ish Python deps for the full pipeline
