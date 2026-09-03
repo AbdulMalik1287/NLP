@@ -4,6 +4,8 @@ Week-1 deliverable per §26. Nothing here is downloaded yet. Every row must be
 **licence-verified** before use, and licences below are recorded from public docs —
 re-check at download time. The repo ships preparation scripts, never restricted data.
 
+**Audited so far:** CFPB (`audit/CFPB_AUDIT.md`, 2026-09-03). Everything else is unaudited.
+
 Selection criteria (§15A): public accessibility, licence, real complaint *narratives*
 (not just ratings/labels), domain relevance, label quality, language info,
 compatibility with the unified intent ontology.
@@ -15,7 +17,7 @@ compatibility with the unified intent ontology.
 ### Banking & finance — the anchor domain
 | Dataset | Link | Size / notes | Licence |
 |---|---|---|---|
-| **CFPB Consumer Complaint Database** | https://www.consumerfinance.gov/data-research/consumer-complaints/ | ~7M complaints, ~1.5M with free-text narratives; product/sub-product/issue/sub-issue labels; English, US, financial. **Best single source of real complaint narratives.** | US public domain (open data) |
+| **CFPB Consumer Complaint Database** | https://www.consumerfinance.gov/data-research/consumer-complaints/ | **AUDITED 2026-09-03:** 17,516,902 complaints, **3,846,901 with narratives (21.96%)**; 21 product labels (~10 canonical), 173 issues; English only, finance only. Credit reporting is 65% of narratives; 79% contain `XXXX` redactions; ~23% templated near-duplicates. See [`audit/CFPB_AUDIT.md`](audit/CFPB_AUDIT.md). | US public domain (open data) |
 | CFPB bulk CSV / API | https://cfpb.github.io/api/ccdb/ | filtered download + API | same |
 | **BANKING77** | https://huggingface.co/datasets/PolyAI/banking77 | 13k online-banking queries, 77 fine-grained intents. Intent-ontology reference + in-domain baseline. | CC-BY-4.0 |
 | RBI / Ombudsman annual reports | https://rbi.org.in/Scripts/AnnualReportPublications.aspx | aggregate stats, no narratives — background only | — |

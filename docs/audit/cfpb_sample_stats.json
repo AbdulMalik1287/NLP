@@ -1,0 +1,571 @@
+{
+  "n_sampled": 7250,
+  "n_with_text": 7250,
+  "n_empty_text": 0,
+  "chars": {
+    "min": 15,
+    "max": 29251,
+    "mean": 1133.4,
+    "median": 731.0,
+    "p90": 2412
+  },
+  "words": {
+    "min": 2,
+    "max": 4653,
+    "mean": 200.6,
+    "median": 131.0,
+    "p90": 425,
+    "over_256_words_pct": 23.63,
+    "over_512_words_pct": 6.87
+  },
+  "redaction": {
+    "docs_with_XX_runs_pct": 78.68,
+    "mean_runs_per_doc": 14.41
+  },
+  "language_signals": {
+    "docs_with_non_ascii_pct": 0.01,
+    "docs_with_devanagari_pct": 0.0,
+    "note": "CFPB is US English. Near-zero Devanagari is the expected result and is precisely why the project still needs its own Hindi/Hinglish set."
+  },
+  "exact_dupes_first200": {
+    "groups": 623,
+    "affected_docs_pct": 22.98
+  },
+  "label_space": {
+    "n_products": 20,
+    "n_sub_products": 70,
+    "n_issues": 131,
+    "n_sub_issues": 202,
+    "n_product_issue_pairs": 196
+  },
+  "top_products": [
+    [
+      "Credit reporting, credit repair services, or other personal consumer reports",
+      2366
+    ],
+    [
+      "Debt collection",
+      1188
+    ],
+    [
+      "Credit reporting or other personal consumer reports",
+      1105
+    ],
+    [
+      "Mortgage",
+      549
+    ],
+    [
+      "Credit card or prepaid card",
+      404
+    ],
+    [
+      "Checking or savings account",
+      399
+    ],
+    [
+      "Credit card",
+      239
+    ],
+    [
+      "Student loan",
+      199
+    ],
+    [
+      "Money transfer, virtual currency, or money service",
+      192
+    ],
+    [
+      "Credit reporting",
+      185
+    ],
+    [
+      "Vehicle loan or lease",
+      141
+    ],
+    [
+      "Bank account or service",
+      84
+    ],
+    [
+      "Payday loan, title loan, or personal loan",
+      63
+    ],
+    [
+      "Consumer Loan",
+      52
+    ],
+    [
+      "Payday loan, title loan, personal loan, or advance loan",
+      27
+    ],
+    [
+      "Prepaid card",
+      26
+    ],
+    [
+      "Payday loan",
+      11
+    ],
+    [
+      "Money transfers",
+      9
+    ],
+    [
+      "Debt or credit management",
+      9
+    ],
+    [
+      "Other financial service",
+      2
+    ]
+  ],
+  "top_issues": [
+    [
+      "Incorrect information on your report",
+      1809
+    ],
+    [
+      "Improper use of your report",
+      821
+    ],
+    [
+      "Problem with a credit reporting company's investigation into an existing problem",
+      624
+    ],
+    [
+      "Attempts to collect debt not owed",
+      474
+    ],
+    [
+      "Managing an account",
+      218
+    ],
+    [
+      "Problem with a company's investigation into an existing problem",
+      169
+    ],
+    [
+      "Trouble during payment process",
+      167
+    ],
+    [
+      "Written notification about debt",
+      166
+    ],
+    [
+      "False statements or representation",
+      128
+    ],
+    [
+      "Incorrect information on credit report",
+      125
+    ],
+    [
+      "Problem with a purchase shown on your statement",
+      118
+    ],
+    [
+      "Took or threatened to take negative or legal action",
+      116
+    ],
+    [
+      "Communication tactics",
+      112
+    ],
+    [
+      "Dealing with your lender or servicer",
+      100
+    ],
+    [
+      "Cont'd attempts collect debt not owed",
+      90
+    ],
+    [
+      "Struggling to pay mortgage",
+      89
+    ],
+    [
+      "Loan servicing, payments, escrow account",
+      79
+    ],
+    [
+      "Other features, terms, or problems",
+      75
+    ],
+    [
+      "Loan modification,collection,foreclosure",
+      70
+    ],
+    [
+      "Fraud or scam",
+      70
+    ],
+    [
+      "Managing the loan or lease",
+      69
+    ],
+    [
+      "Fees or interest",
+      69
+    ],
+    [
+      "Closing an account",
+      61
+    ],
+    [
+      "Unable to get your credit report or credit score",
+      57
+    ],
+    [
+      "Getting a credit card",
+      55
+    ],
+    [
+      "Other transaction problem",
+      51
+    ],
+    [
+      "Problem with a lender or other company charging your account",
+      46
+    ],
+    [
+      "Credit monitoring or identity theft protection services",
+      45
+    ],
+    [
+      "Disclosure verification of debt",
+      43
+    ],
+    [
+      "Applying for a mortgage or refinancing an existing mortgage",
+      43
+    ]
+  ],
+  "top_sub_issues": [
+    [
+      "?",
+      1128
+    ],
+    [
+      "Information belongs to someone else",
+      867
+    ],
+    [
+      "Reporting company used your report improperly",
+      548
+    ],
+    [
+      "Their investigation did not fix an error on your report",
+      445
+    ],
+    [
+      "Account status incorrect",
+      378
+    ],
+    [
+      "Account information incorrect",
+      319
+    ],
+    [
+      "Credit inquiries on your report that you don't recognize",
+      268
+    ],
+    [
+      "Debt is not yours",
+      260
+    ],
+    [
+      "Investigation took more than 30 days",
+      159
+    ],
+    [
+      "Was not notified of investigation status or results",
+      119
+    ],
+    [
+      "Attempted to collect wrong amount",
+      112
+    ],
+    [
+      "Debt was result of identity theft",
+      112
+    ],
+    [
+      "Debt was paid",
+      109
+    ],
+    [
+      "Personal information incorrect",
+      94
+    ],
+    [
+      "Credit card company isn't resolving a dispute about a purchase on your statement",
+      92
+    ],
+    [
+      "Didn't receive enough information to verify debt",
+      84
+    ],
+    [
+      "Deposits and withdrawals",
+      82
+    ],
+    [
+      "Frequent or repeated calls",
+      61
+    ],
+    [
+      "Didn't receive notice of right to dispute",
+      55
+    ],
+    [
+      "Old information reappears or never goes away",
+      54
+    ],
+    [
+      "Debt is not mine",
+      53
+    ],
+    [
+      "Company closed your account",
+      53
+    ],
+    [
+      "Problem with fees",
+      48
+    ],
+    [
+      "Information is missing that should be on the report",
+      48
+    ],
+    [
+      "Threatened or suggested your credit would be damaged",
+      47
+    ],
+    [
+      "Problem using a debit or ATM card",
+      44
+    ],
+    [
+      "Public record information inaccurate",
+      43
+    ],
+    [
+      "Problem with personal statement of dispute",
+      43
+    ],
+    [
+      "Information is not mine",
+      41
+    ],
+    [
+      "Received bad information about your loan",
+      36
+    ]
+  ],
+  "top_product_issue_pairs": [
+    {
+      "product": "Credit reporting, credit repair services, or other personal consumer reports",
+      "issue": "Incorrect information on your report",
+      "count": 1176
+    },
+    {
+      "product": "Credit reporting, credit repair services, or other personal consumer reports",
+      "issue": "Problem with a credit reporting company's investigation into an existing problem",
+      "count": 597
+    },
+    {
+      "product": "Credit reporting or other personal consumer reports",
+      "issue": "Incorrect information on your report",
+      "count": 573
+    },
+    {
+      "product": "Debt collection",
+      "issue": "Attempts to collect debt not owed",
+      "count": 474
+    },
+    {
+      "product": "Credit reporting, credit repair services, or other personal consumer reports",
+      "issue": "Improper use of your report",
+      "count": 470
+    },
+    {
+      "product": "Credit reporting or other personal consumer reports",
+      "issue": "Improper use of your report",
+      "count": 341
+    },
+    {
+      "product": "Checking or savings account",
+      "issue": "Managing an account",
+      "count": 218
+    },
+    {
+      "product": "Mortgage",
+      "issue": "Trouble during payment process",
+      "count": 167
+    },
+    {
+      "product": "Debt collection",
+      "issue": "Written notification about debt",
+      "count": 166
+    },
+    {
+      "product": "Credit reporting or other personal consumer reports",
+      "issue": "Problem with a company's investigation into an existing problem",
+      "count": 161
+    },
+    {
+      "product": "Debt collection",
+      "issue": "False statements or representation",
+      "count": 128
+    },
+    {
+      "product": "Credit reporting",
+      "issue": "Incorrect information on credit report",
+      "count": 125
+    },
+    {
+      "product": "Debt collection",
+      "issue": "Took or threatened to take negative or legal action",
+      "count": 116
+    },
+    {
+      "product": "Debt collection",
+      "issue": "Communication tactics",
+      "count": 112
+    },
+    {
+      "product": "Student loan",
+      "issue": "Dealing with your lender or servicer",
+      "count": 100
+    },
+    {
+      "product": "Debt collection",
+      "issue": "Cont'd attempts collect debt not owed",
+      "count": 90
+    },
+    {
+      "product": "Credit card or prepaid card",
+      "issue": "Problem with a purchase shown on your statement",
+      "count": 90
+    },
+    {
+      "product": "Mortgage",
+      "issue": "Struggling to pay mortgage",
+      "count": 89
+    },
+    {
+      "product": "Mortgage",
+      "issue": "Loan servicing, payments, escrow account",
+      "count": 79
+    },
+    {
+      "product": "Mortgage",
+      "issue": "Loan modification,collection,foreclosure",
+      "count": 70
+    },
+    {
+      "product": "Money transfer, virtual currency, or money service",
+      "issue": "Fraud or scam",
+      "count": 62
+    },
+    {
+      "product": "Checking or savings account",
+      "issue": "Closing an account",
+      "count": 61
+    },
+    {
+      "product": "Credit card or prepaid card",
+      "issue": "Other features, terms, or problems",
+      "count": 54
+    },
+    {
+      "product": "Credit card or prepaid card",
+      "issue": "Fees or interest",
+      "count": 53
+    },
+    {
+      "product": "Money transfer, virtual currency, or money service",
+      "issue": "Other transaction problem",
+      "count": 51
+    },
+    {
+      "product": "Vehicle loan or lease",
+      "issue": "Managing the loan or lease",
+      "count": 48
+    },
+    {
+      "product": "Credit reporting, credit repair services, or other personal consumer reports",
+      "issue": "Unable to get your credit report or credit score",
+      "count": 47
+    },
+    {
+      "product": "Checking or savings account",
+      "issue": "Problem with a lender or other company charging your account",
+      "count": 46
+    },
+    {
+      "product": "Debt collection",
+      "issue": "Disclosure verification of debt",
+      "count": 43
+    },
+    {
+      "product": "Mortgage",
+      "issue": "Applying for a mortgage or refinancing an existing mortgage",
+      "count": 43
+    }
+  ],
+  "years": [
+    [
+      "2015",
+      450
+    ],
+    [
+      "2016",
+      450
+    ],
+    [
+      "2017",
+      450
+    ],
+    [
+      "2018",
+      700
+    ],
+    [
+      "2019",
+      700
+    ],
+    [
+      "2020",
+      1050
+    ],
+    [
+      "2021",
+      650
+    ],
+    [
+      "2022",
+      650
+    ],
+    [
+      "2023",
+      500
+    ],
+    [
+      "2024",
+      900
+    ],
+    [
+      "2025",
+      500
+    ],
+    [
+      "2026",
+      250
+    ]
+  ],
+  "product_imbalance_ratio_sample": 1183.0,
+  "source": "CFPB search API v1, has_narrative=true, stratified over 150 random days 2015-01-01..now, asc+desc heads (no offset paging exists)"
+}
