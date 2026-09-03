@@ -16,6 +16,7 @@ Usage:
 """
 
 import argparse
+import collections
 import json
 import os
 import random
@@ -154,6 +155,8 @@ def main():
     ap.add_argument("--preset", default="", help="named preset from configs/presets.json")
     ap.add_argument("--limit-train", type=int, default=0, help="debug: truncate train set")
     ap.add_argument("--save-model", default="")
+    ap.add_argument("--class-weights", choices=["none", "balanced"], default="none",
+                    help="balanced matches the TF-IDF baselines, which use class_weight=balanced")
     a = ap.parse_args()
 
     if a.preset:
@@ -200,6 +203,15 @@ def main():
     dl_tr, dl_te = mk(tr, True), mk(te, False)
     dl_va = mk(va, False) if va else None
 
+    if a.class_weights == "balanced":
+        counts = collections.Counter(r["intent"] for r in tr)
+        w = torch.tensor([len(tr) / (len(labels) * counts[l]) for l in labels],
+                         dtype=torch.float32, device=device)
+        print("  class weights: min=%.3f max=%.3f" % (w.min().item(), w.max().item()))
+    else:
+        w = None
+    criterion = torch.nn.CrossEntropyLoss(weight=w)
+
     params = [p for p in model.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(params, lr=a.lr, weight_decay=a.weight_decay)
     steps = max(1, (len(dl_tr) // a.grad_accum) * a.epochs)
@@ -214,8 +226,10 @@ def main():
         opt.zero_grad(set_to_none=True)
         for step, batch in enumerate(dl_tr, 1):
             batch = {k: v.to(device, non_blocking=True) for k, v in batch.items()}
+            target = batch.pop("labels")
             with torch.autocast("cuda", dtype=amp_dtype, enabled=amp):
-                loss = model(**batch).loss / a.grad_accum
+                logits = model(**batch).logits
+                loss = criterion(logits.float(), target) / a.grad_accum
             scaler.scale(loss).backward()
             running += loss.item() * a.grad_accum
             if step % a.grad_accum == 0:
