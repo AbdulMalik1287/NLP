@@ -2,7 +2,7 @@
 
 **Project:** Cross-Domain Complaint Understanding via Multilingual Encoders (B.Tech capstone, IIIT Nagpur, 16 weeks)
 **Last updated:** 2026-09-03
-**Status:** Week 1 of 16. Data pipeline built and run; baselines measured; first transformer sweep in flight.
+**Status:** Week 1 of 16. Data pipeline built and run; T1 complete on both baselines and transformers. Ontology v1 is the next blocking item.
 
 Read this first, then `docs/audit/CFPB_AUDIT.md` (what the data actually is) and
 `docs/DEMO_AND_METRICS.md` (what numbers we owe and what counts as a broken run).
@@ -20,7 +20,7 @@ Read this first, then `docs/audit/CFPB_AUDIT.md` (what the data actually is) and
 - Blackwell node set up end to end, verified working
 
 **In flight**
-- XLM-R base and mBERT, 6 epochs, in-domain, running on the node's two MIG slices
+- nothing; T1 is complete (see §2)
 
 **Not started**
 - Everything multilingual (Hindi, Hinglish) — see §6, this is the critical path
@@ -40,12 +40,49 @@ Read this first, then `docs/audit/CFPB_AUDIT.md` (what the data actually is) and
 | TF-IDF + LinearSVC | **0.5223** | 3 seeds, std 0.0000, fit 17 s |
 | TF-IDF + LogReg | **0.5254** | 3 seeds, std 0.0000, fit 193 s |
 | XLM-R base *(laptop pilot)* | 0.5126 | **discarded — see below** |
-| XLM-R base *(node, corrected)* | pending | |
-| mBERT *(node, corrected)* | pending | |
+| XLM-R base *(node, corrected)* | **0.5419** | clears the floor by +0.020 |
+| mBERT *(node, corrected)* | **0.5263** | ties the floor (+0.001) |
 
 Seed std is 0.0000 for the TF-IDF models because both are deterministic convex solvers on
 fixed splits. Real variance only appears with the transformers, which is where the
 3-seed rule matters.
+
+## T1 — in-domain intent classification, FINAL (51,555 train / 11,044 test, 16 intents)
+
+| Model | macro-F1 | Accuracy | vs floor | Notes |
+|---|---|---|---|---|
+| Majority class | 0.0079 | 0.068 | — | |
+| TF-IDF + LinearSVC | 0.5223 | 0.526 | — | the floor; fit 17 s |
+| TF-IDF + LogReg | 0.5254 | 0.526 | +0.003 | fit 193 s |
+| mBERT | **0.5263** | 0.527 | **+0.001** | 6 ep, 61 min, MIG slice |
+| **XLM-R base** | **0.5419** | 0.542 | **+0.020** | 6 ep, 66 min, MIG slice |
+| XLM-R base *(laptop pilot, discarded)* | 0.5126 | 0.517 | -0.010 | 3 ep, truncated, unweighted |
+
+Node config: bf16, `max_len 512`, `--class-weights balanced`, embeddings unfrozen,
+batch 32, seed 13. Identical splits to the baselines (md5-verified), so the comparison
+is like for like.
+
+**Read this honestly.** XLM-R beats the TF-IDF floor by **+0.020 macro-F1**, and mBERT
+essentially ties it (+0.001). Both are far below the 0.70-0.84 band predicted in
+`DEMO_AND_METRICS.md`. A 278M-parameter multilingual encoder buying two points over
+bag-of-words is a weak result, and the likeliest cause is **label noise in ontology
+v0.1**, not the models:
+
+- Both models fail on the *same* classes, in the same order: `debt_threats` (0.43/0.44),
+  `account_management` (0.44/0.45), `reporting_incorrect_information` (0.42/0.46),
+  `reporting_investigation_dispute` (0.48). The TF-IDF baselines fail on those too.
+- Those are exactly the pairs whose CFPB issue strings overlap semantically. Our intents
+  come from keyword rules over `issue || sub_issue`, so any complaint sitting between two
+  issue labels gets an arbitrary intent.
+- Validation converged (0.5367 / 0.5363 / 0.5379 over the last three epochs), so this is
+  not underfitting any more. The ceiling is in the labels.
+
+XLM-R over mBERT (+0.016) is the expected direction, but on English-only data this says
+nothing about H1 — H1 is a cross-*language* claim and needs Hindi/Hinglish to test.
+
+**Next action this implies:** ontology v1 before more model work. Merge or sharpen the
+confusable intent pairs, then re-run T1. Chasing model tweaks against noisy labels is
+wasted compute.
 
 ### The discarded pilot — read this before trusting any transformer number
 

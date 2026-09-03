@@ -1,0 +1,893 @@
+{
+  "tag": "indomain",
+  "model": "google-bert/bert-base-multilingual-cased",
+  "seed": 13,
+  "config": {
+    "model": "google-bert/bert-base-multilingual-cased",
+    "train": "data/processed/train.jsonl",
+    "val": "data/processed/val.jsonl",
+    "test": "data/processed/test.jsonl",
+    "out": "results/transformers",
+    "tag": "indomain",
+    "seed": 13,
+    "epochs": 6,
+    "batch_size": 32,
+    "grad_accum": 1,
+    "lr": 2e-05,
+    "max_len": 512,
+    "warmup_ratio": 0.06,
+    "weight_decay": 0.01,
+    "no_freeze_embeddings": true,
+    "no_amp": false,
+    "precision": "bf16",
+    "preset": "mig_24gb",
+    "limit_train": 0,
+    "save_model": "",
+    "class_weights": "balanced"
+  },
+  "params_total_M": null,
+  "params_frozen_M": null,
+  "n_train": 51555,
+  "n_test": 11044,
+  "n_labels": 16,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.8878,
+      "epoch_seconds": 559.2,
+      "val": {
+        "accuracy": 0.4709,
+        "macro_f1": 0.4713,
+        "weighted_f1": 0.4698,
+        "eval_seconds": 35.6,
+        "n": 11044,
+        "per_class": {
+          "account_access": {
+            "precision": 0.5351288056206089,
+            "recall": 0.6093333333333333,
+            "f1-score": 0.5698254364089775,
+            "support": 750.0
+          },
+          "account_management": {
+            "precision": 0.44280442804428044,
+            "recall": 0.32,
+            "f1-score": 0.3715170278637771,
+            "support": 750.0
+          },
+          "application_problem": {
+            "precision": 0.5844660194174758,
+            "recall": 0.4013333333333333,
+            "f1-score": 0.4758893280632411,
+            "support": 750.0
+          },
+          "closing_process": {
+            "precision": 0.5292096219931272,
+            "recall": 0.5703703703703704,
+            "f1-score": 0.5490196078431373,
+            "support": 270.0
+          },
+          "credit_terms_dispute": {
+            "precision": 0.49609375,
+            "recall": 0.508,
+            "f1-score": 0.5019762845849802,
+            "support": 750.0
+          },
+          "debt_communication": {
+            "precision": 0.42063492063492064,
+            "recall": 0.5269886363636364,
+            "f1-score": 0.467843631778058,
+            "support": 704.0
+          },
+          "debt_not_owed": {
+            "precision": 0.3769363166953528,
+            "recall": 0.292,
+            "f1-score": 0.3290758827948911,
+            "support": 750.0
+          },
+          "debt_threats": {
+            "precision": 0.38636363636363635,
+            "recall": 0.30960264900662254,
+            "f1-score": 0.34375,
+            "support": 604.0
+          },
+          "fraud_or_scam": {
+            "precision": 0.5714285714285714,
+            "recall": 0.3626666666666667,
+            "f1-score": 0.4437194127243067,
+            "support": 750.0
+          },
+          "funds_availability": {
+            "precision": 0.4916142557651992,
+            "recall": 0.6253333333333333,
+            "f1-score": 0.5504694835680751,
+            "support": 750.0
+          },
+          "payment_problem": {
+            "precision": 0.4380252100840336,
+            "recall": 0.556,
+            "f1-score": 0.4900117508813161,
+            "support": 750.0
+          },
+          "reporting_improper_use": {
+            "precision": 0.5137254901960784,
+            "recall": 0.4746376811594203,
+            "f1-score": 0.4934086629001883,
+            "support": 552.0
+          },
+          "reporting_incorrect_information": {
+            "precision": 0.2948539638386648,
+            "recall": 0.5653333333333334,
+            "f1-score": 0.3875685557586837,
+            "support": 750.0
+          },
+          "reporting_investigation_dispute": {
+            "precision": 0.45901639344262296,
+            "recall": 0.3373493975903614,
+            "f1-score": 0.3888888888888889,
+            "support": 664.0
+          },
+          "servicing_dispute": {
+            "precision": 0.7466918714555766,
+            "recall": 0.5266666666666666,
+            "f1-score": 0.617670054730258,
+            "support": 750.0
+          },
+          "transaction_problem": {
+            "precision": 0.5487179487179488,
+            "recall": 0.5706666666666667,
+            "f1-score": 0.5594771241830065,
+            "support": 750.0
+          },
+          "accuracy": 0.4709344440420138,
+          "macro avg": {
+            "precision": 0.4897319502311311,
+            "recall": 0.472267629238984,
+            "f1-score": 0.4712569458107366,
+            "support": 11044.0
+          },
+          "weighted avg": {
+            "precision": 0.4894794847938868,
+            "recall": 0.4709344440420138,
+            "f1-score": 0.4698212849695455,
+            "support": 11044.0
+          }
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.4188,
+      "epoch_seconds": 566.3,
+      "val": {
+        "accuracy": 0.5037,
+        "macro_f1": 0.5036,
+        "weighted_f1": 0.5015,
+        "eval_seconds": 35.6,
+        "n": 11044,
+        "per_class": {
+          "account_access": {
+            "precision": 0.5891677675033025,
+            "recall": 0.5946666666666667,
+            "f1-score": 0.5919044459190445,
+            "support": 750.0
+          },
+          "account_management": {
+            "precision": 0.4024725274725275,
+            "recall": 0.39066666666666666,
+            "f1-score": 0.39648173207036536,
+            "support": 750.0
+          },
+          "application_problem": {
+            "precision": 0.5167597765363129,
+            "recall": 0.49333333333333335,
+            "f1-score": 0.504774897680764,
+            "support": 750.0
+          },
+          "closing_process": {
+            "precision": 0.4853658536585366,
+            "recall": 0.737037037037037,
+            "f1-score": 0.5852941176470589,
+            "support": 270.0
+          },
+          "credit_terms_dispute": {
+            "precision": 0.5915279878971256,
+            "recall": 0.5213333333333333,
+            "f1-score": 0.5542168674698795,
+            "support": 750.0
+          },
+          "debt_communication": {
+            "precision": 0.3954276037256562,
+            "recall": 0.6633522727272727,
+            "f1-score": 0.4954907161803713,
+            "support": 704.0
+          },
+          "debt_not_owed": {
+            "precision": 0.4213197969543147,
+            "recall": 0.332,
+            "f1-score": 0.3713646532438479,
+            "support": 750.0
+          },
+          "debt_threats": {
+            "precision": 0.4602803738317757,
+            "recall": 0.326158940397351,
+            "f1-score": 0.3817829457364341,
+            "support": 604.0
+          },
+          "fraud_or_scam": {
+            "precision": 0.5901060070671378,
+            "recall": 0.44533333333333336,
+            "f1-score": 0.5075987841945289,
+            "support": 750.0
+          },
+          "funds_availability": {
+            "precision": 0.47058823529411764,
+            "recall": 0.6933333333333334,
+            "f1-score": 0.5606469002695418,
+            "support": 750.0
+          },
+          "payment_problem": {
+            "precision": 0.5424528301886793,
+            "recall": 0.46,
+            "f1-score": 0.49783549783549785,
+            "support": 750.0
+          },
+          "reporting_improper_use": {
+            "precision": 0.5173611111111112,
+            "recall": 0.5398550724637681,
+            "f1-score": 0.5283687943262412,
+            "support": 552.0
+          },
+          "reporting_incorrect_information": {
+            "precision": 0.37582128777923784,
+            "recall": 0.38133333333333336,
+            "f1-score": 0.3785572468563865,
+            "support": 750.0
+          },
+          "reporting_investigation_dispute": {
+            "precision": 0.4856687898089172,
+            "recall": 0.45933734939759036,
+            "f1-score": 0.47213622291021673,
+            "support": 664.0
+          },
+          "servicing_dispute": {
+            "precision": 0.7070254110612855,
+            "recall": 0.6306666666666667,
+            "f1-score": 0.6666666666666666,
+            "support": 750.0
+          },
+          "transaction_problem": {
+            "precision": 0.618066561014263,
+            "recall": 0.52,
+            "f1-score": 0.5648081100651702,
+            "support": 750.0
+          },
+          "accuracy": 0.5037124230351322,
+          "macro avg": {
+            "precision": 0.5105882450565189,
+            "recall": 0.5117754586681054,
+            "f1-score": 0.503620537442001,
+            "support": 11044.0
+          },
+          "weighted avg": {
+            "precision": 0.5129018209568763,
+            "recall": 0.5037124230351322,
+            "f1-score": 0.5015168103372629,
+            "support": 11044.0
+          }
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.2424,
+      "epoch_seconds": 566.4,
+      "val": {
+        "accuracy": 0.5248,
+        "macro_f1": 0.5219,
+        "weighted_f1": 0.5218,
+        "eval_seconds": 35.6,
+        "n": 11044,
+        "per_class": {
+          "account_access": {
+            "precision": 0.5794930875576036,
+            "recall": 0.6706666666666666,
+            "f1-score": 0.6217552533992583,
+            "support": 750.0
+          },
+          "account_management": {
+            "precision": 0.47266313932980597,
+            "recall": 0.35733333333333334,
+            "f1-score": 0.4069855732725892,
+            "support": 750.0
+          },
+          "application_problem": {
+            "precision": 0.5820379965457686,
+            "recall": 0.4493333333333333,
+            "f1-score": 0.5071482317531979,
+            "support": 750.0
+          },
+          "closing_process": {
+            "precision": 0.4569377990430622,
+            "recall": 0.7074074074074074,
+            "f1-score": 0.5552325581395349,
+            "support": 270.0
+          },
+          "credit_terms_dispute": {
+            "precision": 0.5490683229813664,
+            "recall": 0.5893333333333334,
+            "f1-score": 0.5684887459807074,
+            "support": 750.0
+          },
+          "debt_communication": {
+            "precision": 0.587737843551797,
+            "recall": 0.39488636363636365,
+            "f1-score": 0.4723874256584537,
+            "support": 704.0
+          },
+          "debt_not_owed": {
+            "precision": 0.452445652173913,
+            "recall": 0.444,
+            "f1-score": 0.44818304172274565,
+            "support": 750.0
+          },
+          "debt_threats": {
+            "precision": 0.3967254408060453,
+            "recall": 0.5215231788079471,
+            "f1-score": 0.45064377682403434,
+            "support": 604.0
+          },
+          "fraud_or_scam": {
+            "precision": 0.5943396226415094,
+            "recall": 0.504,
+            "f1-score": 0.5454545454545454,
+            "support": 750.0
+          },
+          "funds_availability": {
+            "precision": 0.5135983263598326,
+            "recall": 0.6546666666666666,
+            "f1-score": 0.5756154747948418,
+            "support": 750.0
+          },
+          "payment_problem": {
+            "precision": 0.5339105339105339,
+            "recall": 0.49333333333333335,
+            "f1-score": 0.5128205128205128,
+            "support": 750.0
+          },
+          "reporting_improper_use": {
+            "precision": 0.4907120743034056,
+            "recall": 0.5742753623188406,
+            "f1-score": 0.5292153589315526,
+            "support": 552.0
+          },
+          "reporting_incorrect_information": {
+            "precision": 0.41963015647226176,
+            "recall": 0.3933333333333333,
+            "f1-score": 0.4060564349621473,
+            "support": 750.0
+          },
+          "reporting_investigation_dispute": {
+            "precision": 0.5040916530278232,
+            "recall": 0.463855421686747,
+            "f1-score": 0.4831372549019608,
+            "support": 664.0
+          },
+          "servicing_dispute": {
+            "precision": 0.6398514851485149,
+            "recall": 0.6893333333333334,
+            "f1-score": 0.6636713735558408,
+            "support": 750.0
+          },
+          "transaction_problem": {
+            "precision": 0.6031957390146472,
+            "recall": 0.604,
+            "f1-score": 0.603597601598934,
+            "support": 750.0
+          },
+          "accuracy": 0.5248098515030786,
+          "macro avg": {
+            "precision": 0.5235274295542431,
+            "recall": 0.531955066699415,
+            "f1-score": 0.5218995727356786,
+            "support": 11044.0
+          },
+          "weighted avg": {
+            "precision": 0.528570108934871,
+            "recall": 0.5248098515030786,
+            "f1-score": 0.5217697380418826,
+            "support": 11044.0
+          }
+        }
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.089,
+      "epoch_seconds": 564.9,
+      "val": {
+        "accuracy": 0.5274,
+        "macro_f1": 0.5249,
+        "weighted_f1": 0.5248,
+        "eval_seconds": 35.7,
+        "n": 11044,
+        "per_class": {
+          "account_access": {
+            "precision": 0.5450901803607214,
+            "recall": 0.7253333333333334,
+            "f1-score": 0.6224256292906178,
+            "support": 750.0
+          },
+          "account_management": {
+            "precision": 0.4604200323101777,
+            "recall": 0.38,
+            "f1-score": 0.4163623082542001,
+            "support": 750.0
+          },
+          "application_problem": {
+            "precision": 0.6160877513711152,
+            "recall": 0.4493333333333333,
+            "f1-score": 0.5196607555898227,
+            "support": 750.0
+          },
+          "closing_process": {
+            "precision": 0.5109717868338558,
+            "recall": 0.6037037037037037,
+            "f1-score": 0.5534804753820034,
+            "support": 270.0
+          },
+          "credit_terms_dispute": {
+            "precision": 0.5476190476190477,
+            "recall": 0.5826666666666667,
+            "f1-score": 0.5645994832041343,
+            "support": 750.0
+          },
+          "debt_communication": {
+            "precision": 0.5139664804469274,
+            "recall": 0.5227272727272727,
+            "f1-score": 0.5183098591549296,
+            "support": 704.0
+          },
+          "debt_not_owed": {
+            "precision": 0.4696969696969697,
+            "recall": 0.41333333333333333,
+            "f1-score": 0.4397163120567376,
+            "support": 750.0
+          },
+          "debt_threats": {
+            "precision": 0.4109195402298851,
+            "recall": 0.4735099337748344,
+            "f1-score": 0.44,
+            "support": 604.0
+          },
+          "fraud_or_scam": {
+            "precision": 0.543859649122807,
+            "recall": 0.5373333333333333,
+            "f1-score": 0.5405767940979208,
+            "support": 750.0
+          },
+          "funds_availability": {
+            "precision": 0.550185873605948,
+            "recall": 0.592,
+            "f1-score": 0.5703275529865125,
+            "support": 750.0
+          },
+          "payment_problem": {
+            "precision": 0.5603174603174603,
+            "recall": 0.4706666666666667,
+            "f1-score": 0.5115942028985507,
+            "support": 750.0
+          },
+          "reporting_improper_use": {
+            "precision": 0.506079027355623,
+            "recall": 0.6032608695652174,
+            "f1-score": 0.5504132231404959,
+            "support": 552.0
+          },
+          "reporting_incorrect_information": {
+            "precision": 0.4175824175824176,
+            "recall": 0.4053333333333333,
+            "f1-score": 0.41136671177266576,
+            "support": 750.0
+          },
+          "reporting_investigation_dispute": {
+            "precision": 0.48450244698205547,
+            "recall": 0.44728915662650603,
+            "f1-score": 0.46515270164447925,
+            "support": 664.0
+          },
+          "servicing_dispute": {
+            "precision": 0.6675324675324675,
+            "recall": 0.6853333333333333,
+            "f1-score": 0.6763157894736842,
+            "support": 750.0
+          },
+          "transaction_problem": {
+            "precision": 0.6008064516129032,
+            "recall": 0.596,
+            "f1-score": 0.5983935742971888,
+            "support": 750.0
+          },
+          "accuracy": 0.5274357116986599,
+          "macro avg": {
+            "precision": 0.5253523489362739,
+            "recall": 0.5304890168581793,
+            "f1-score": 0.5249184608277464,
+            "support": 11044.0
+          },
+          "weighted avg": {
+            "precision": 0.528201209772188,
+            "recall": 0.5274357116986599,
+            "f1-score": 0.524835539451759,
+            "support": 11044.0
+          }
+        }
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.9505,
+      "epoch_seconds": 567.2,
+      "val": {
+        "accuracy": 0.5266,
+        "macro_f1": 0.5254,
+        "weighted_f1": 0.5249,
+        "eval_seconds": 35.3,
+        "n": 11044,
+        "per_class": {
+          "account_access": {
+            "precision": 0.5607375271149675,
+            "recall": 0.6893333333333334,
+            "f1-score": 0.618421052631579,
+            "support": 750.0
+          },
+          "account_management": {
+            "precision": 0.441340782122905,
+            "recall": 0.42133333333333334,
+            "f1-score": 0.4311050477489768,
+            "support": 750.0
+          },
+          "application_problem": {
+            "precision": 0.5506072874493927,
+            "recall": 0.544,
+            "f1-score": 0.5472837022132797,
+            "support": 750.0
+          },
+          "closing_process": {
+            "precision": 0.5043731778425656,
+            "recall": 0.6407407407407407,
+            "f1-score": 0.564437194127243,
+            "support": 270.0
+          },
+          "credit_terms_dispute": {
+            "precision": 0.6137404580152672,
+            "recall": 0.536,
+            "f1-score": 0.5722419928825623,
+            "support": 750.0
+          },
+          "debt_communication": {
+            "precision": 0.4655367231638418,
+            "recall": 0.5852272727272727,
+            "f1-score": 0.5185651353052234,
+            "support": 704.0
+          },
+          "debt_not_owed": {
+            "precision": 0.4854202401372213,
+            "recall": 0.37733333333333335,
+            "f1-score": 0.42460615153788445,
+            "support": 750.0
+          },
+          "debt_threats": {
+            "precision": 0.42005813953488375,
+            "recall": 0.478476821192053,
+            "f1-score": 0.4473684210526316,
+            "support": 604.0
+          },
+          "fraud_or_scam": {
+            "precision": 0.544,
+            "recall": 0.544,
+            "f1-score": 0.544,
+            "support": 750.0
+          },
+          "funds_availability": {
+            "precision": 0.5475896168108776,
+            "recall": 0.5906666666666667,
+            "f1-score": 0.568313021167415,
+            "support": 750.0
+          },
+          "payment_problem": {
+            "precision": 0.5179558011049724,
+            "recall": 0.5,
+            "f1-score": 0.508819538670285,
+            "support": 750.0
+          },
+          "reporting_improper_use": {
+            "precision": 0.5508637236084453,
+            "recall": 0.519927536231884,
+            "f1-score": 0.5349487418452936,
+            "support": 552.0
+          },
+          "reporting_incorrect_information": {
+            "precision": 0.4583333333333333,
+            "recall": 0.3373333333333333,
+            "f1-score": 0.38863287250384027,
+            "support": 750.0
+          },
+          "reporting_investigation_dispute": {
+            "precision": 0.4368231046931408,
+            "recall": 0.5466867469879518,
+            "f1-score": 0.48561872909698994,
+            "support": 664.0
+          },
+          "servicing_dispute": {
+            "precision": 0.6949860724233984,
+            "recall": 0.6653333333333333,
+            "f1-score": 0.6798365122615804,
+            "support": 750.0
+          },
+          "transaction_problem": {
+            "precision": 0.6402640264026402,
+            "recall": 0.5173333333333333,
+            "f1-score": 0.5722713864306784,
+            "support": 750.0
+          },
+          "accuracy": 0.5266207895689967,
+          "macro avg": {
+            "precision": 0.5270393758598658,
+            "recall": 0.5308578615341606,
+            "f1-score": 0.5254043437172164,
+            "support": 11044.0
+          },
+          "weighted avg": {
+            "precision": 0.5299703371095841,
+            "recall": 0.5266207895689967,
+            "f1-score": 0.5249066845472734,
+            "support": 11044.0
+          }
+        }
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.8431,
+      "epoch_seconds": 609.5,
+      "val": {
+        "accuracy": 0.5286,
+        "macro_f1": 0.5284,
+        "weighted_f1": 0.5284,
+        "eval_seconds": 34.0,
+        "n": 11044,
+        "per_class": {
+          "account_access": {
+            "precision": 0.5899880810488677,
+            "recall": 0.66,
+            "f1-score": 0.6230333543108874,
+            "support": 750.0
+          },
+          "account_management": {
+            "precision": 0.43671766342141866,
+            "recall": 0.4186666666666667,
+            "f1-score": 0.427501701837985,
+            "support": 750.0
+          },
+          "application_problem": {
+            "precision": 0.5800865800865801,
+            "recall": 0.536,
+            "f1-score": 0.5571725571725572,
+            "support": 750.0
+          },
+          "closing_process": {
+            "precision": 0.53,
+            "recall": 0.5888888888888889,
+            "f1-score": 0.5578947368421052,
+            "support": 270.0
+          },
+          "credit_terms_dispute": {
+            "precision": 0.5695006747638327,
+            "recall": 0.5626666666666666,
+            "f1-score": 0.5660630449362843,
+            "support": 750.0
+          },
+          "debt_communication": {
+            "precision": 0.5169014084507042,
+            "recall": 0.5213068181818182,
+            "f1-score": 0.5190947666195191,
+            "support": 704.0
+          },
+          "debt_not_owed": {
+            "precision": 0.45555555555555555,
+            "recall": 0.43733333333333335,
+            "f1-score": 0.44625850340136053,
+            "support": 750.0
+          },
+          "debt_threats": {
+            "precision": 0.43390357698289267,
+            "recall": 0.46192052980132453,
+            "f1-score": 0.44747393744987973,
+            "support": 604.0
+          },
+          "fraud_or_scam": {
+            "precision": 0.5653450807635829,
+            "recall": 0.5133333333333333,
+            "f1-score": 0.5380852550663872,
+            "support": 750.0
+          },
+          "funds_availability": {
+            "precision": 0.5534351145038168,
+            "recall": 0.58,
+            "f1-score": 0.56640625,
+            "support": 750.0
+          },
+          "payment_problem": {
+            "precision": 0.5079575596816976,
+            "recall": 0.5106666666666667,
+            "f1-score": 0.5093085106382979,
+            "support": 750.0
+          },
+          "reporting_improper_use": {
+            "precision": 0.5166112956810631,
+            "recall": 0.5634057971014492,
+            "f1-score": 0.5389948006932409,
+            "support": 552.0
+          },
+          "reporting_incorrect_information": {
+            "precision": 0.4312925170068027,
+            "recall": 0.4226666666666667,
+            "f1-score": 0.42693602693602695,
+            "support": 750.0
+          },
+          "reporting_investigation_dispute": {
+            "precision": 0.4726735598227474,
+            "recall": 0.4819277108433735,
+            "f1-score": 0.4772557792692021,
+            "support": 664.0
+          },
+          "servicing_dispute": {
+            "precision": 0.6930835734870316,
+            "recall": 0.6413333333333333,
+            "f1-score": 0.6662049861495845,
+            "support": 750.0
+          },
+          "transaction_problem": {
+            "precision": 0.5866666666666667,
+            "recall": 0.5866666666666667,
+            "f1-score": 0.5866666666666667,
+            "support": 750.0
+          },
+          "accuracy": 0.5286128214415067,
+          "macro avg": {
+            "precision": 0.5274824317452038,
+            "recall": 0.5304239423843867,
+            "f1-score": 0.528396929874374,
+            "support": 11044.0
+          },
+          "weighted avg": {
+            "precision": 0.5292758811322532,
+            "recall": 0.5286128214415067,
+            "f1-score": 0.5284316518581751,
+            "support": 11044.0
+          }
+        }
+      }
+    }
+  ],
+  "test": {
+    "accuracy": 0.5266,
+    "macro_f1": 0.5263,
+    "weighted_f1": 0.5262,
+    "eval_seconds": 33.8,
+    "n": 11044,
+    "per_class": {
+      "account_access": {
+        "precision": 0.6109134045077106,
+        "recall": 0.6866666666666666,
+        "f1-score": 0.6465787821720025,
+        "support": 750.0
+      },
+      "account_management": {
+        "precision": 0.4394736842105263,
+        "recall": 0.44533333333333336,
+        "f1-score": 0.4423841059602649,
+        "support": 750.0
+      },
+      "application_problem": {
+        "precision": 0.580952380952381,
+        "recall": 0.488,
+        "f1-score": 0.5304347826086957,
+        "support": 750.0
+      },
+      "closing_process": {
+        "precision": 0.5614035087719298,
+        "recall": 0.5925925925925926,
+        "f1-score": 0.5765765765765766,
+        "support": 270.0
+      },
+      "credit_terms_dispute": {
+        "precision": 0.5692307692307692,
+        "recall": 0.5426666666666666,
+        "f1-score": 0.5556313993174061,
+        "support": 750.0
+      },
+      "debt_communication": {
+        "precision": 0.518796992481203,
+        "recall": 0.4900568181818182,
+        "f1-score": 0.504017531044558,
+        "support": 704.0
+      },
+      "debt_not_owed": {
+        "precision": 0.48419540229885055,
+        "recall": 0.4493333333333333,
+        "f1-score": 0.4661134163208852,
+        "support": 750.0
+      },
+      "debt_threats": {
+        "precision": 0.4105263157894737,
+        "recall": 0.4519867549668874,
+        "f1-score": 0.4302600472813239,
+        "support": 604.0
+      },
+      "fraud_or_scam": {
+        "precision": 0.556047197640118,
+        "recall": 0.5026666666666667,
+        "f1-score": 0.5280112044817927,
+        "support": 750.0
+      },
+      "funds_availability": {
+        "precision": 0.5594936708860759,
+        "recall": 0.5893333333333334,
+        "f1-score": 0.574025974025974,
+        "support": 750.0
+      },
+      "payment_problem": {
+        "precision": 0.5263819095477387,
+        "recall": 0.5586666666666666,
+        "f1-score": 0.5420439844760673,
+        "support": 750.0
+      },
+      "reporting_improper_use": {
+        "precision": 0.46889226100151743,
+        "recall": 0.5597826086956522,
+        "f1-score": 0.5103220478943022,
+        "support": 552.0
+      },
+      "reporting_incorrect_information": {
+        "precision": 0.41434262948207173,
+        "recall": 0.416,
+        "f1-score": 0.4151696606786427,
+        "support": 750.0
+      },
+      "reporting_investigation_dispute": {
+        "precision": 0.48165869218500795,
+        "recall": 0.45481927710843373,
+        "f1-score": 0.4678543764523625,
+        "support": 664.0
+      },
+      "servicing_dispute": {
+        "precision": 0.6371191135734072,
+        "recall": 0.6133333333333333,
+        "f1-score": 0.625,
+        "support": 750.0
+      },
+      "transaction_problem": {
+        "precision": 0.6026315789473684,
+        "recall": 0.6106666666666667,
+        "f1-score": 0.6066225165562914,
+        "support": 750.0
+      },
+      "accuracy": 0.5266207895689967,
+      "macro avg": {
+        "precision": 0.5263787194691344,
+        "recall": 0.5282440448882533,
+        "f1-score": 0.5263154003654467,
+        "support": 11044.0
+      },
+      "weighted avg": {
+        "precision": 0.5277984544054215,
+        "recall": 0.5266207895689967,
+        "f1-score": 0.5262356059796727,
+        "support": 11044.0
+      }
+    }
+  },
+  "peak_vram_gb": 9.24,
+  "total_seconds": 3679.8
+}
