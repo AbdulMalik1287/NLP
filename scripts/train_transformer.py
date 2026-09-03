@@ -157,6 +157,10 @@ def main():
     ap.add_argument("--save-model", default="")
     ap.add_argument("--class-weights", choices=["none", "balanced"], default="none",
                     help="balanced matches the TF-IDF baselines, which use class_weight=balanced")
+    ap.add_argument("--early-stop-patience", type=int, default=0,
+                    help="stop if val macro-F1 has not improved for N epochs (0 = off)")
+    ap.add_argument("--select-best", action="store_true",
+                    help="report test on the best-val-macro-F1 epoch, not the last epoch")
     a = ap.parse_args()
 
     if a.preset:
@@ -218,7 +222,9 @@ def main():
     sched = get_linear_schedule_with_warmup(opt, int(steps * a.warmup_ratio), steps)
     scaler = torch.amp.GradScaler("cuda", enabled=(amp and a.precision == "fp16"))
 
+    import copy
     hist = []
+    best_val, best_epoch, best_state, stale = -1.0, 0, None, 0
     t_start = time.time()
     for ep in range(1, a.epochs + 1):
         model.train()
@@ -248,11 +254,29 @@ def main():
                     "epoch_seconds": round(time.time() - t_ep, 1)}
         if dl_va:
             ep_stats["val"] = evaluate(model, dl_va, device, i2l, amp, amp_dtype)
-            print("  ep%d val macro-F1=%s" % (ep, ep_stats["val"]["macro_f1"]))
+            vf1 = ep_stats["val"]["macro_f1"]
+            print("  ep%d val macro-F1=%s" % (ep, vf1))
+            if vf1 > best_val:
+                best_val, best_epoch, stale = vf1, ep, 0
+                if a.select_best:
+                    best_state = copy.deepcopy(
+                        {k: v.detach().cpu() for k, v in model.state_dict().items()})
+            else:
+                stale += 1
         hist.append(ep_stats)
+        if a.early_stop_patience and stale >= a.early_stop_patience:
+            print("  early stop: no val improvement for %d epochs (best ep%d=%.4f)"
+                  % (stale, best_epoch, best_val))
+            break
+
+    if a.select_best and best_state is not None:
+        print("  loading best-val checkpoint from epoch %d (val macro-F1 %.4f)"
+              % (best_epoch, best_val))
+        model.load_state_dict({k: v.to(device) for k, v in best_state.items()})
 
     test_stats = evaluate(model, dl_te, device, i2l, amp, amp_dtype)
-    print("TEST macro-F1=%s acc=%s" % (test_stats["macro_f1"], test_stats["accuracy"]))
+    print("TEST macro-F1=%s acc=%s (best val ep%d=%.4f)"
+          % (test_stats["macro_f1"], test_stats["accuracy"], best_epoch, best_val))
 
     out = {
         "tag": a.tag,
@@ -263,6 +287,9 @@ def main():
         "params_frozen_M": round(frozen / 1e6, 1) if total else None,
         "n_train": len(tr), "n_test": len(te), "n_labels": len(labels),
         "history": hist,
+        "best_val_macro_f1": round(best_val, 4),
+        "best_val_epoch": best_epoch,
+        "selected_checkpoint": ("best_val_epoch_%d" % best_epoch) if a.select_best else "last_epoch",
         "test": test_stats,
         "peak_vram_gb": round(torch.cuda.max_memory_allocated() / 1e9, 2)
         if device == "cuda" else None,
