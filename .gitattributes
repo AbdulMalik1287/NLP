@@ -1,0 +1,5 @@
+# Shell scripts and Slurm files run on Linux; never give them CRLF endings,
+# or bash fails with "$'\r': command not found".
+*.sh    text eol=lf
+*.sbatch text eol=lf
+*.py    text eol=lf
