@@ -30,3 +30,6 @@ logs/
 .idea/
 Thumbs.db
 desktop.ini
+
+# tooling artifacts
+.impeccable/
