@@ -37,3 +37,4 @@ desktop.ini
 # local venv and raw/processed data
 .venv/
 results/
+models/
