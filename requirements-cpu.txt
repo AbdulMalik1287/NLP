@@ -1,0 +1,21 @@
+# Laptop / dev subset — dataset audit, EDA, TF-IDF baselines, API skeleton.
+# No training. Torch here is the CPU wheel.
+torch==2.4.1
+transformers==4.44.2
+sentencepiece==0.2.0
+datasets==2.21.0
+scikit-learn==1.5.2
+numpy==1.26.4
+pandas==2.2.2
+faiss-cpu==1.8.0.post1
+fasttext-wheel==0.9.2
+ftfy==6.2.3
+datasketch==1.6.5
+indic-transliteration==2.3.61
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+streamlit==1.38.0
+jupyterlab==4.2.5
+matplotlib==3.9.2
+seaborn==0.13.2
+tqdm==4.66.5

@@ -1,0 +1,32 @@
+# data + models are never committed; prep scripts are
+data/
+models/
+checkpoints/
+*.bin
+*.pt
+*.safetensors
+*.faiss
+*.index
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+
+# experiment output
+mlruns/
+wandb/
+outputs/
+logs/
+*.log
+
+# env / editor / os
+.env
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
